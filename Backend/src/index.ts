@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
-import sequelize  from './config/db.js';
+import { sequelize, Usuario, TarefasModel } from './models/index-models.js'
+
 
 
 const app = express();
@@ -15,9 +16,9 @@ const port = process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3000;
 
 async function startApp() {
     try {
-        await sequelize.sync();
+        await sequelize.sync({ alter: true });
         // await sequelize.sync({ alter: true });
-        // console.log('Tabelas criadas/atualizadas com sucesso! ✨');
+         console.log('Tabelas criadas/atualizadas com sucesso! ✨');
         app.listen(port, () => {
             console.log("🚀 Servidor rodando na porta " + port);
         })
