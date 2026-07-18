@@ -12,18 +12,9 @@ class TarefasModel extends Model {
 
 TarefasModel.init(
     {
-        usuario_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'Usuarios',
-                key: 'id'
-            }
-        },
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            allowNull: false,
             autoIncrement: true
         },
         titulo: {
@@ -41,6 +32,14 @@ TarefasModel.init(
         dataLimite: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'Usuarios',
+                key: 'id'
+            }
         }
 
     },

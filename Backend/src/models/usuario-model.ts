@@ -6,9 +6,9 @@ class Usuario extends Model {
     public nome!: string;
     public email!: string;
     public senha!: string;
-    public xp!: number;
-    public nivel!: number;
-    public hp!: number;
+    // public xp!: number;
+    // public nivel!: number;
+    // public hp!: number;
 }
 
 Usuario.init(
@@ -17,7 +17,6 @@ Usuario.init(
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            allowNull: false
         },
         nome: {
             type: DataTypes.STRING(255),
@@ -32,21 +31,21 @@ Usuario.init(
             type: DataTypes.STRING(255),
             allowNull: false
         },    
-        xp: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 0
-        },
-        nivel: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 1
-        },
-        hp: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 100
-        }
+        // xp: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     defaultValue: 0
+        // },
+        // nivel: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     defaultValue: 1
+        // },
+        // hp: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     defaultValue: 100
+        // }
     },
     {
         sequelize,

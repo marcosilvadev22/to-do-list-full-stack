@@ -15,7 +15,7 @@ const port = process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3000;
 async function startApp() {
     try {
         // await sequelize.sync({ alter: true });
-         //console.log('Tabelas criadas/atualizadas com sucesso! ✨');
+        // console.log('Tabelas criadas/atualizadas com sucesso! ✨');
         app.listen(port, () => {
             console.log("🚀 Servidor rodando na porta " + port);
         })

@@ -4,11 +4,11 @@ import Usuario from "./usuario-model.js";
 
 
 Usuario.hasMany(TarefasModel, {
-    foreignKey: 'usuario_id',
+    foreignKey: 'userId',
     onDelete:  'CASCADE'
 })
 TarefasModel.belongsTo(Usuario, {
-    foreignKey: 'usuario_id',
+    foreignKey: 'userId',
 })
 
 export {sequelize, Usuario, TarefasModel}

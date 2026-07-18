@@ -15,7 +15,7 @@ export async function createUserService(nome: string, email: string, senha: stri
 
 export async function findUserByEmail(email: string) {
     try {
-        const user = await User.findOne({ where: { email: email } });
+        const user = await User.findOne({ where: { email } });
         return user;
     } catch (error) {
         throw error;
