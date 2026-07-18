@@ -12,3 +12,12 @@ export async function createUserService(nome: string, email: string, senha: stri
         throw error;
     }
 }
+
+export async function findUserByEmail(email: string) {
+    try {
+        const user = await User.findOne({ where: { email: email } });
+        return user;
+    } catch (error) {
+        throw error;
+    }
+}
