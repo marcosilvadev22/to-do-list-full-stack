@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* [ESTILO]: Efeito de vidro (transparência + desfoque de fundo) */
+  .glass {
+    /* bg-slate-950 com 80% de opacidade (ou ajuste conforme sua necessidade) */
+    @apply bg-slate-950/80 backdrop-blur-sm;
+  }
+
+  /* [ESTILO]: Gradiente aplicado diretamente ao texto */
+  .text-gradient {
+    /* Mesmas cores do gradiente da logo/barra */
+    @apply bg-gradient-to-br from-cyan-400 to-emerald-500 bg-clip-text text-transparent;
+  }
+}
