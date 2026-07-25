@@ -1,64 +1,102 @@
-import { User, Mail, Lock } from 'lucide-react';
+// import { User, Mail, Lock } from 'lucide-react';
+import { useState } from 'react';
 
 export default function RegisterPage() {
+  const [isLogin, setIsLogin] = useState(false);
   return (
     // Container principal: tela cheia, dividido em duas colunas no desktop
     <div className="flex min-h-screen bg-[#0f172a] font-sans">
-      
+
       {/* Lado Esquerdo: Formulário de Registro */}
       <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24 w-full lg:w-1/2">
         <div className="mx-auto w-full max-w-sm lg:w-96">
-          
-          {/* Cabeçalho */}
-          <div className="text-center lg:text-left">
-            <svg className="mx-auto lg:mx-0 h-10 w-auto text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
-            <h2 className="mt-8 text-3xl font-bold leading-9 tracking-tight text-white">
-              Create an account
-            </h2>
-            <p className="mt-2 text-sm leading-6 text-slate-400">
-              Signup now and get full access to our app.
-            </p>
-          </div>
 
-          {/* Formulário */}
+          {!isLogin ? (
+            <div className="text-center lg:text-left">
+              <svg className="mx-auto lg:mx-0 h-10 w-auto text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+              <h2 className="mt-8 text-3xl font-bold leading-9 tracking-tight text-white">
+                Crie sua conta
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-400">
+                Cadastre-se agora para ter acesso completo á plataforma.
+              </p>
+            </div>
+          ): (
+            <div className="text-center lg:text-left">
+              <svg className="mx-auto lg:mx-0 h-10 w-auto text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+              <h2 className="mt-8 text-3xl font-bold leading-9 tracking-tight text-white">
+                Bem-vindo de volta!
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-400">
+                Entre com suas credenciais para sua conta.
+              </p>
+            </div>
+          )}
+
+
           <div className="mt-10">
+            <div className="grid grid-cols-2 bg-slate-950/80 p-1 rounded-xl mb-6 border border-slate-800/80">
+              <button
+                type="button"
+                onClick={() => setIsLogin(true)}
+                className={`py-2 text-sm font-medium rounded-lg transition-all ${isLogin
+                  ? 'bg-cyan-500 to-teal-400 text-slate-950 font-semibold shadow'
+                  : 'text-slate-400 hover:text-white'
+                  }`}
+              >
+                Entrar
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsLogin(false)}
+                className={`py-2 text-sm font-medium rounded-lg transition-all ${!isLogin
+                  ? 'bg-cyan-500 to-teal-400 text-slate-950 font-semibold shadow'
+                  : 'text-slate-400 hover:text-white'
+                  }`}
+              >
+                Criar conta
+              </button>
+            </div>
             <form action="#" method="POST" className="space-y-5">
-              
-              {/* Linha Dupla: Firstname e Lastname */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-white">
-                    Firstname
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="firstname"
-                      name="firstname"
-                      type="text"
-                      placeholder="John"
-                      required
-                      className="block w-full rounded-md border-0 bg-white/5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-cyan-500 sm:text-sm sm:leading-6 placeholder:text-slate-600"
-                    />
+              {!isLogin && (
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-white">
+                      Firstname
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="firstname"
+                        name="firstname"
+                        type="text"
+                        placeholder="John"
+                        required
+                        className="block w-full rounded-md border-0 bg-white/5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-cyan-500 sm:text-sm sm:leading-6 placeholder:text-slate-600"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="lastname" className="block text-sm font-medium leading-6 text-white">
+                      Lastname
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="lastname"
+                        name="lastname"
+                        type="text"
+                        placeholder="Doe"
+                        required
+                        className="block w-full rounded-md border-0 bg-white/5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-cyan-500 sm:text-sm sm:leading-6 placeholder:text-slate-600"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <label htmlFor="lastname" className="block text-sm font-medium leading-6 text-white">
-                    Lastname
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="lastname"
-                      name="lastname"
-                      type="text"
-                      placeholder="Doe"
-                      required
-                      className="block w-full rounded-md border-0 bg-white/5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-cyan-500 sm:text-sm sm:leading-6 placeholder:text-slate-600"
-                    />
-                  </div>
-                </div>
-              </div>
+              )}
+
 
               {/* Input: Email */}
               <div>
@@ -121,14 +159,6 @@ export default function RegisterPage() {
                 </button>
               </div>
             </form>
-
-            {/* Link inferior (Estilo da Imagem) */}
-            <p className="mt-8 text-center text-sm text-slate-400">
-              Already have an account?{' '}
-              <a href="#" className="font-semibold text-cyan-400 hover:text-cyan-300 transition-colors">
-                Signin
-              </a>
-            </p>
           </div>
 
         </div>

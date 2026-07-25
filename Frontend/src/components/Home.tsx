@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Trophy, Lock, CheckCircle2, Plus } from 'lucide-react';
 import Navbar from '../components/Navbar'; // 🧭 Importação do componente separado
 
