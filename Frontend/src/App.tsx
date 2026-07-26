@@ -1,5 +1,5 @@
 //import Home from "./components/Home";
-import RegisterPage from "./components/initialPage/Register";
+import RegisterPage from "./components/initialPage/Login";
 
 export default function App() {
   return (
