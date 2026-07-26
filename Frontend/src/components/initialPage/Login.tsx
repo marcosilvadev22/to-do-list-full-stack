@@ -1,8 +1,44 @@
-// import { User, Mail, Lock } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
+import { loginRequest, createContaRequest } from '../../service/auth';
 
-export default function RegisterPage() {
+interface LoginProps {
+  onLogin: (name: string, email: string) => void;
+}
+
+export default function Login({ onLogin }: LoginProps) {
   const [isLogin, setIsLogin] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      if (isLogin) {
+        const userData = await loginRequest(email, password);
+        console.log(userData);
+        onLogin(userData.user.name, userData.user.email);
+      } else {
+        const userData = await createContaRequest(name, email, password);
+        console.log(userData.data.user);
+        onLogin(userData.data.user.name, userData.data.user.email);
+      }
+    } catch (error) {
+      if (isLogin) {
+        console.error(error);
+        alert("Email ou senha incorretos.");
+      } else {
+        console.error(error);
+        alert("nome, Email ou senha incorretos.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     // Container principal: tela cheia, dividido em duas colunas no desktop
     <div className="flex min-h-screen bg-[#0f172a] font-sans">
@@ -23,7 +59,7 @@ export default function RegisterPage() {
                 Cadastre-se agora para ter acesso completo á plataforma.
               </p>
             </div>
-          ): (
+          ) : (
             <div className="text-center lg:text-left">
               <svg className="mx-auto lg:mx-0 h-10 w-auto text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
@@ -61,39 +97,25 @@ export default function RegisterPage() {
                 Criar conta
               </button>
             </div>
-            <form action="#" method="POST" className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5">
               {!isLogin && (
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-white">
-                      Firstname
+                      Nome
                     </label>
                     <div className="mt-2">
                       <input
-                        id="firstname"
-                        name="firstname"
                         type="text"
-                        placeholder="John"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Seu nome"
                         required
                         className="block w-full rounded-md border-0 bg-white/5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-cyan-500 sm:text-sm sm:leading-6 placeholder:text-slate-600"
                       />
                     </div>
                   </div>
-                  <div>
-                    <label htmlFor="lastname" className="block text-sm font-medium leading-6 text-white">
-                      Lastname
-                    </label>
-                    <div className="mt-2">
-                      <input
-                        id="lastname"
-                        name="lastname"
-                        type="text"
-                        placeholder="Doe"
-                        required
-                        className="block w-full rounded-md border-0 bg-white/5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-cyan-500 sm:text-sm sm:leading-6 placeholder:text-slate-600"
-                      />
-                    </div>
-                  </div>
+
                 </div>
               )}
 
@@ -108,6 +130,8 @@ export default function RegisterPage() {
                     id="email"
                     name="email"
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="email@example.com"
                     required
                     className="block w-full rounded-md border-0 bg-white/5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-cyan-500 sm:text-sm sm:leading-6 placeholder:text-slate-600"
@@ -125,37 +149,28 @@ export default function RegisterPage() {
                     id="password"
                     name="password"
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
                     required
                     className="block w-full rounded-md border-0 bg-white/5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-cyan-500 sm:text-sm sm:leading-6 placeholder:text-slate-600"
                   />
                 </div>
               </div>
-
-              {/* Input: Confirm Password */}
-              <div>
-                <label htmlFor="confirm-password" className="block text-sm font-medium leading-6 text-white">
-                  Confirm password
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="confirm-password"
-                    name="confirm-password"
-                    type="password"
-                    placeholder="••••••••"
-                    required
-                    className="block w-full rounded-md border-0 bg-white/5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-cyan-500 sm:text-sm sm:leading-6 placeholder:text-slate-600"
-                  />
-                </div>
-              </div>
-
               {/* Botão Submit */}
               <div className="pt-2">
                 <button
                   type="submit"
+                  disabled={isLoading}
                   className="flex w-full justify-center rounded-md bg-cyan-500 px-3 py-2 text-sm font-semibold leading-6 text-[#0f172a] shadow-sm hover:bg-cyan-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500 transition-all active:scale-[0.98]"
                 >
-                  Submit
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    </>
+                  ) : (
+                    <span>{isLogin ? 'Começar minha jornada' : 'Entrar na conta'}</span>
+                  )}
                 </button>
               </div>
             </form>
