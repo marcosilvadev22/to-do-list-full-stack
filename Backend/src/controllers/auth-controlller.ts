@@ -7,11 +7,11 @@ import jwt from 'jsonwebtoken'
 
 export async function createUser(req: Request, res: Response) {
     try {
-        const { nome, email, senha } = req.body;
+        const { name, email, password } = req.body;
         const saltRounds = 10;
-        const hashSenha = await bcrypt.hash(senha, saltRounds);
-        const user = await createUserService(nome, email, hashSenha);
-        return res.status(200).json({ message: "Usuario criado com sucesso." });
+        const hashSenha = await bcrypt.hash(password, saltRounds);
+        const user = await createUserService(name, email, hashSenha);
+        res.status(201).json({ msg: "Usuario criado com sucesso.", user: {name: name, email: email}});
     } catch (error) {
         return console.error("Erro ao criar Usuario:" + error);
     }
@@ -20,13 +20,12 @@ export async function createUser(req: Request, res: Response) {
 
 export async function loginUser(req: Request, res: Response) {
     try {
-        const { email, senha } = req.body;
+        const { email, password } = req.body;
         const user = await findUserByEmail(email);
-        console.log(user?.dataValues);
         if (!user) {
             return res.status(401).json({ message: "Credenciais inválidas." });
         }
-        const senhaValida = await bcrypt.compare(senha, user.dataValues.senha);
+        const senhaValida = await bcrypt.compare(password, user.dataValues.password);
         if (!senhaValida) {
             return res.status(401).json({ message: "Credenciais inválidas." });
         }

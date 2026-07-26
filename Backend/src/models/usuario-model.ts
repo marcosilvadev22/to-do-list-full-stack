@@ -2,10 +2,10 @@ import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.js';
 
 class Usuario extends Model {
-    public id!: number;
-    public nome!: string;
-    public email!: string;
-    public senha!: string;
+    declare id: number;
+    declare name: string;
+    declare email: string;
+    declare password: string;
     // public xp!: number;
     // public nivel!: number;
     // public hp!: number;
@@ -18,7 +18,7 @@ Usuario.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        nome: {
+        name: {
             type: DataTypes.STRING(255),
             allowNull: false
         },
@@ -27,7 +27,7 @@ Usuario.init(
             allowNull: false,
             unique: true
         },    
-        senha: {
+        password: {
             type: DataTypes.STRING(255),
             allowNull: false
         },    
