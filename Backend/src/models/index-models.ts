@@ -1,5 +1,5 @@
 import sequelize from "../config/db.js";
-import TarefasModel from "./tarefas-model.js";
+import TarefasModel from "./tasks-model.js";
 import Usuario from "./usuario-model.js";
 
 

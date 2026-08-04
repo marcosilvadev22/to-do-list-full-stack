@@ -1,35 +1,35 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.js';
 
-class TarefasModel extends Model {
-    public usuario_id!: number;
+class TasksModel extends Model {
+    public user_id!: number;
     public id!: number;
-    public titulo!: string;
-    public descricao!: string; 
-    public concluida!: boolean;
-    public dataLimite!: number;
+    public title!: string;
+    public description!: string; 
+    public status!: boolean;
+    public datelimited!: number;
 }
 
-TarefasModel.init(
+TasksModel.init(
     {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        titulo: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        descricao: {
+        description: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        concluida: {
+        status: {
             type: DataTypes.BOOLEAN,
             allowNull: false
         },
-        dataLimite: {
+        datelimited: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -49,4 +49,4 @@ TarefasModel.init(
     }
 )
 
-export default TarefasModel;
+export default TasksModel;
