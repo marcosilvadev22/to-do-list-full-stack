@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import Login from './Login';
+import Dashboard from '../dashbord/Dashbord';
 
 export default function Hero() {
-
-    function callLogin(): void {
-        <Login onLogin={() => { }}
-        />
+    const [showLogin, setshowLogin] = useState(false);
+    if (showLogin) {
+        return <Login onLogin={() => { <Dashboard /> }} />;
     }
     return (
         <section className="bg-zinc-950 text-zinc-100 min-h-[calc(100vh-80px)] px-6 py-12 md:px-16 flex items-center">
@@ -32,7 +33,9 @@ export default function Hero() {
                     {/* Botões de Ação */}
                     <div className="flex flex-wrap items-center gap-4 pt-2">
                         <button
-                            onClick={callLogin}
+                            onClick={() => {
+                                setshowLogin(true);
+                            }}
                             className="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold px-6 py-3 rounded-full transition-colors flex items-center gap-2">
                             Começar agora ↗
                         </button>
@@ -68,6 +71,7 @@ export default function Hero() {
                 </div>
 
             </div>
+
         </section>
     );
 };
