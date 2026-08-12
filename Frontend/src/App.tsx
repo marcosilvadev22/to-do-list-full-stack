@@ -1,18 +1,21 @@
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/initialPage/Home";
-//import Home from "./components/Home";
+import Login from "./components/initialPage/Login";
+import Dashboard from "../src/components/dashbord/Dashbord"; // ajuste o caminho conforme seu projeto // ajuste o caminho conforme seu projeto
+// import ProtectedRoute from "./routes/ProtectedRoute";
 
 export default function App() {
-  // const [isLoggedIn, setInLoggedIn] = useState(false);
   return (
-    <>
-    <Home />
-    {/* {!isLoggedIn ? (
-      <Login onLogin={() => {
-        setInLoggedIn(true);
-      }} 
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login onLogin={() => {}} />} />
+      <Route
+        path="/dashboard"
+        element={
+            <Dashboard />
+        }
       />
-    ): <Home />} */}
-    </>
-
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
