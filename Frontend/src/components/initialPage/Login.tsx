@@ -19,7 +19,6 @@ export default function Login({ onLogin }: LoginProps) {
     try {
       if (isLogin) {
         const userData = await loginRequest(email, password);
-        console.log(userData);
         onLogin(userData.user.name, userData.user.email);
       } else {
         const userData = await createContaRequest(name, email, password);

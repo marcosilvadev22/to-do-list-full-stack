@@ -1,18 +1,17 @@
+import Home from "./components/initialPage/Home";
 //import Home from "./components/Home";
-import { useState } from "react";
-import Login from "./components/initialPage/Login";
-import Home from "./components/Home";
 
 export default function App() {
-  const [isLoggedIn, setInLoggedIn] = useState(false);
+  // const [isLoggedIn, setInLoggedIn] = useState(false);
   return (
     <>
-    {!isLoggedIn ? (
+    <Home />
+    {/* {!isLoggedIn ? (
       <Login onLogin={() => {
         setInLoggedIn(true);
       }} 
       />
-    ): <Home />}
+    ): <Home />} */}
     </>
 
   );
