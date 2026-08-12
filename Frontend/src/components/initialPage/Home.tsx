@@ -1,10 +1,12 @@
-import NavbarHome from './NavbarHome';
+import Hero from './Hero';
+import Navbar from './NavbarHome';
 
 export default function Home() {
 
     return (
         <div className="App">
-            <NavbarHome />
+            <Navbar />
+            <Hero />
         </div>
     );
 }
