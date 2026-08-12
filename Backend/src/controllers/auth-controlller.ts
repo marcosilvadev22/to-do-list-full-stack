@@ -21,6 +21,7 @@ export async function createUser(req: Request, res: Response) {
 export async function loginUser(req: Request, res: Response) {
     try {
         const { email, password } = req.body;
+        console.log(email, password);
         const user = await findUserByEmail(email);
         if (!user) {
             return res.status(401).json({ message: "Credenciais inválidas." });
