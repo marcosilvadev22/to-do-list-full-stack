@@ -1,12 +1,7 @@
-import { useState } from 'react';
-import Login from './Login';
-import Dashboard from '../dashbord/Dashbord';
+import { useNavigate } from 'react-router-dom';
 
 export default function Hero() {
-    const [showLogin, setshowLogin] = useState(false);
-    if (showLogin) {
-        return <Login onLogin={() => { <Dashboard /> }} />;
-    }
+    const navigate = useNavigate();
     return (
         <section className="bg-zinc-950 text-zinc-100 min-h-[calc(100vh-80px)] px-6 py-12 md:px-16 flex items-center">
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -34,7 +29,7 @@ export default function Hero() {
                     <div className="flex flex-wrap items-center gap-4 pt-2">
                         <button
                             onClick={() => {
-                                setshowLogin(true);
+                                navigate("/login");
                             }}
                             className="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold px-6 py-3 rounded-full transition-colors flex items-center gap-2">
                             Começar agora ↗

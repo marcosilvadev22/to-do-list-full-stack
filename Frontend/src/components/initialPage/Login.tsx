@@ -1,12 +1,14 @@
 import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { loginRequest, createContaRequest } from '../../service/auth';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginProps {
   onLogin: (name: string, email: string) => void;
 }
 
 export default function Login({ onLogin }: LoginProps) {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,11 +21,18 @@ export default function Login({ onLogin }: LoginProps) {
     try {
       if (isLogin) {
         const userData = await loginRequest(email, password);
-        onLogin(userData.user.name, userData.user.email);
+        onLogin(
+          userData.user.name, 
+          userData.user.email
+        );
+        navigate("/dashboard");
       } else {
         const userData = await createContaRequest(name, email, password);
-        console.log(userData.data.user);
-        onLogin(userData.data.user.name, userData.data.user.email);
+        onLogin(
+          userData.data.user.name, 
+          userData.data.user.email
+        );
+        navigate("/dashboard");
       }
     } catch (error) {
       if (isLogin) {
