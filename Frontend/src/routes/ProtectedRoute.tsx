@@ -1,12 +1,13 @@
 import { Navigate } from "react-router-dom";
 import { type ReactNode } from "react";
+import { useAuth } from "../contexts/useAuth";
 interface ProtectedRouteProps {
   children: ReactNode;
 }
 
 function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const getToken = document.cookie;
-  if (!getToken) {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) {
     return <Navigate replace to="/login"/>
   }
 

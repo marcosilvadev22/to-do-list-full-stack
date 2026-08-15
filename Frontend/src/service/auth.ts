@@ -7,7 +7,6 @@ export async function loginRequest(email: string, password: string) {
             email,
             password
         });
-        console.log(request);
         return request.data;
     } catch (error) {
         console.log("erro na requisição:", error);
@@ -21,5 +20,15 @@ export const createContaRequest = async (name: string, email: string, password: 
     } catch (error) {
         console.error("Erro na requisição", error);
         throw error;
+    }
+}
+
+export const checkUser = async () => {
+    try {
+        const res = await api.get('/auth/checkAuth');
+        return res.data.user;
+    } catch (error) {
+        console.error("Erro ao verificar autenticação", error);
+        throw error; 
     }
 }

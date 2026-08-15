@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { loginRequest, createContaRequest } from '../../service/auth';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/useAuth';
 
 interface LoginProps {
   onLogin: (name: string, email: string) => void;
@@ -14,7 +15,7 @@ export default function Login({ onLogin }: LoginProps) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const { checkAuth } = useAuth(); 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -36,6 +37,7 @@ export default function Login({ onLogin }: LoginProps) {
           userData.user.name,
           userData.user.email
         );
+        await checkAuth();
         navigate("/dashboard");
       } else {
         const userData = await createContaRequest(name, email, password);
@@ -43,6 +45,7 @@ export default function Login({ onLogin }: LoginProps) {
           userData.data.user.name,
           userData.data.user.email
         );
+        await checkAuth();
         navigate("/dashboard");
       }
     } catch (error) {

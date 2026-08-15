@@ -1,7 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/useAuth';
+import { Link } from 'react-router-dom'
 
 export default function Hero() {
-    const navigate = useNavigate();
+    const { isAuthenticated } = useAuth();
+
     return (
         <section className="bg-zinc-950 text-zinc-100 min-h-[calc(100vh-80px)] px-6 py-12 md:px-16 flex items-center">
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -27,12 +29,12 @@ export default function Hero() {
 
                     {/* Botões de Ação */}
                     <div className="flex flex-wrap items-center gap-4 pt-2">
-                        <button
-                            onClick={() => {
-                                navigate("/login");
-                            }}
-                            className="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold px-6 py-3 rounded-full transition-colors flex items-center gap-2">
-                            Começar agora ↗
+                        <button className="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold px-6 py-3 rounded-full transition-colors flex items-center gap-2">
+                            {isAuthenticated ? (
+                                <Link to="/dashboard">Ir pro Dashboard</Link>
+                            ) : (
+                                <Link to="/login">Começa agora</Link>
+                            )}
                         </button>
                         <button className="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 font-medium px-6 py-3 rounded-full transition-colors flex items-center gap-2">
                             ▶ Conhecer o projeto
