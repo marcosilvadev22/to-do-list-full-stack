@@ -8,7 +8,7 @@ interface LoginProps {
 
 export default function Login({ onLogin }: LoginProps) {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,14 +17,18 @@ export default function Login({ onLogin }: LoginProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     setError("");
 
     if (!email || !password) {
       setError("Preencha email e senha para continuar.");
       return;
     }
+    if (!isLogin && !name) {
+      setError("Preencha seu nome para criar a conta.");
+      return;
+    }
 
+    setIsLoading(true);
     try {
       if (isLogin) {
         const userData = await loginRequest(email, password);
@@ -44,10 +48,10 @@ export default function Login({ onLogin }: LoginProps) {
     } catch (error) {
       if (isLogin) {
         console.error(error);
-        alert("Email ou senha incorretos.");
+        setError("Email ou senha incorretos.");
       } else {
         console.error(error);
-        alert("nome, Email ou senha incorretos.");
+        setError("Não foi possível criar a conta. Confira nome, email e senha.");
       }
     } finally {
       setIsLoading(false);
@@ -55,7 +59,6 @@ export default function Login({ onLogin }: LoginProps) {
   }
 
   return (
-
     <div className="min-h-screen flex flex-col bg-[#0a0b0a] text-[#f2f4f2]">
       <div className="px-6 md:px-10 py-6 border-b border-[#1b1d1b]">
         <Link to="/" className="inline-flex items-center gap-2.5 font-bold text-lg text-[#f2f4f2]">
@@ -71,44 +74,46 @@ export default function Login({ onLogin }: LoginProps) {
         <div className="w-full max-w-[400px] bg-[#101210] border border-[#1e211e] rounded-2xl p-8">
           <span className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-wide text-[#22c37a] bg-[#22c37a]/10 rounded-full px-3 py-1.5 mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#22c37a]" />
-            BEM-VINDO DE VOLTA
+            {isLogin ? "BEM-VINDO DE VOLTA" : "COMECE AGORA"}
           </span>
-          {!isLogin ? (
+
+          {isLogin ? (
             <div className="text-center lg:text-left">
-              <h2 className="mt-8 text-3xl font-bold leading-9 tracking-tight text-white">
-                Crie sua conta
+              <h2 className="mt-2 text-3xl font-bold leading-9 tracking-tight text-white">
+                Bem-vindo de volta!
               </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-400">
-                Cadastre-se agora para ter acesso completo á plataforma.
+              <p className="mt-2 text-sm leading-6 text-[#9a9e9a]">
+                Entre com suas credenciais para acessar sua conta.
               </p>
             </div>
           ) : (
             <div className="text-center lg:text-left">
-              <h2 className="mt-8 text-3xl font-bold leading-9 tracking-tight text-white">
-                Bem-vindo de volta!
+              <h2 className="mt-2 text-3xl font-bold leading-9 tracking-tight text-white">
+                Crie sua conta
               </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-400">
-                Entre com suas credenciais para sua conta.
+              <p className="mt-2 text-sm leading-6 text-[#9a9e9a]">
+                Cadastre-se agora para ter acesso completo à plataforma.
               </p>
             </div>
           )}
-          <div className="grid grid-cols-2 bg-[#0a0b0a] p-1 rounded-xl mb-6 border border-slate-800/80">
+
+          <div className="grid grid-cols-2 bg-[#0a0b0a] p-1 rounded-xl mb-6 mt-6 border border-[#1e211e]">
             <button
               type="button"
-              onClick={() => setIsLogin(true)}
+              onClick={() => { setIsLogin(true); setError(""); }}
               className={`py-2 text-sm font-medium rounded-lg transition-all ${isLogin
-                ? 'bg-[#22c37a] hover:bg-[#29d987] to-teal-400 text-slate-950 font-semibold shadow'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#22c37a] hover:bg-[#29d987] text-[#06110b] font-semibold'
+                : 'text-[#9a9e9a] hover:text-white'
                 }`}
             >
               Entrar
             </button>
             <button
               type="button"
-              onClick={() => setIsLogin(false)}
+              onClick={() => { setIsLogin(false); setError(""); }}
               className={`py-2 text-sm font-medium rounded-lg transition-all ${!isLogin
-                ? 'bg-[#22c37a] hover:bg-[#29d987] to-teal-400 text-slate-950 font-semibold shadow'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#22c37a] hover:bg-[#29d987] text-[#06110b] font-semibold'
+                : 'text-[#9a9e9a] hover:text-white'
                 }`}
             >
               Criar conta
@@ -117,22 +122,21 @@ export default function Login({ onLogin }: LoginProps) {
 
           <form className="flex flex-col" onSubmit={handleSubmit}>
             {!isLogin && (
-                  <div>
-                    <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-white">
-                      Nome
-                    </label>
-                    <div className="mt-2">
-                      <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Seu nome"
-                        required
-                        className="w-full bg-[#0a0b0a] border border-[#262a26] rounded-[10px] px-3.5 py-2.5 text-sm text-[#f2f4f2] placeholder:text-[#55584f] outline-none focus:border-[#22c37a] transition-colors"
-                      />
-                    </div>
-                  </div>
-              )}
+              <div className="mb-4">
+                <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-white mb-1.5">
+                  Nome
+                </label>
+                <input
+                  id="firstname"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Seu nome"
+                  className="w-full bg-[#0a0b0a] border border-[#262a26] rounded-[10px] px-3.5 py-2.5 text-sm text-[#f2f4f2] placeholder:text-[#55584f] outline-none focus:border-[#22c37a] transition-colors"
+                />
+              </div>
+            )}
+
             <label htmlFor="email" className="text-[13px] text-[#c9cdc9] mb-1.5">
               Email
             </label>
@@ -150,9 +154,11 @@ export default function Login({ onLogin }: LoginProps) {
               <label htmlFor="password" className="text-[13px] text-[#c9cdc9]">
                 Senha
               </label>
-              <Link to="/esqueci-senha" className="text-xs text-[#22c37a] hover:underline">
-                Esqueceu a senha?
-              </Link>
+              {isLogin && (
+                <Link to="/esqueci-senha" className="text-xs text-[#22c37a] hover:underline">
+                  Esqueceu a senha?
+                </Link>
+              )}
             </div>
             <input
               id="password"
@@ -160,7 +166,7 @@ export default function Login({ onLogin }: LoginProps) {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              autoComplete="current-password"
+              autoComplete={isLogin ? "current-password" : "new-password"}
               className="w-full bg-[#0a0b0a] border border-[#262a26] rounded-[10px] px-3.5 py-2.5 text-sm text-[#f2f4f2] placeholder:text-[#55584f] outline-none focus:border-[#22c37a] transition-colors"
             />
 
@@ -171,16 +177,11 @@ export default function Login({ onLogin }: LoginProps) {
               disabled={isLoading}
               className="mt-6 bg-[#22c37a] hover:bg-[#29d987] disabled:opacity-60 disabled:cursor-not-allowed text-[#06110b] rounded-[10px] py-3 text-sm font-bold transition-colors"
             >
-              {isLoading ? "Entrando..." : "Entrar"}
+              {isLoading
+                ? (isLogin ? "Entrando..." : "Criando conta...")
+                : (isLogin ? "Entrar" : "Criar conta")}
             </button>
           </form>
-
-          <p className="text-center text-[13px] text-[#9a9e9a] mt-6">
-            Ainda não tem conta?{" "}
-            <Link to="/cadastro" className="text-[#22c37a] font-semibold hover:underline">
-              Criar conta
-            </Link>
-          </p>
         </div>
       </div>
     </div>

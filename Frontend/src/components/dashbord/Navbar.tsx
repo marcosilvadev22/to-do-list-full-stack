@@ -11,46 +11,46 @@ export default function Navbar() {
   const userEmail = "dev.exemplo@email.com";
 
   return (
-    <header className="glass border-b border-slate-800 sticky top-0 z-30">
+    <header className="bg-[#0a0b0a]/95 backdrop-blur border-b border-[#1b1d1b] sticky top-0 z-30">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-4">
         <div className="flex items-center gap-2.5 shrink-0">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-emerald-500 flex items-center justify-center shadow-md shadow-cyan-500/20">
-            <Swords className="w-5 h-5 text-slate-950" strokeWidth={2.5} />
+          <div className="w-9 h-9 rounded-full bg-[#22c37a] flex items-center justify-center">
+            <Swords className="w-5 h-5 text-[#050807]" strokeWidth={2.5} />
           </div>
-          <span className="font-extrabold text-lg text-gradient hidden sm:block">QuestList</span>
+          <span className="font-extrabold text-lg text-[#f2f4f2] hidden sm:block">TaskFlow</span>
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between text-xs mb-1">
-            <span className="font-semibold text-cyan-400">Nível {level}</span>
-            <span className="text-slate-400 tabular-nums">
+            <span className="font-semibold text-[#22c37a]">Nível {level}</span>
+            <span className="text-[#9a9e9a] tabular-nums">
               {xpCurrent} / {xpNeeded} XP
             </span>
           </div>
-          <div className="h-2 rounded-full bg-slate-800 overflow-hidden">
+          <div className="h-2 rounded-full bg-[#1e211e] overflow-hidden">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 transition-all duration-500"
+              className="h-full rounded-full bg-[#22c37a] transition-all duration-500"
               style={{ width: `${pctProgress}%` }}
             />
           </div>
         </div>
         <div className="hidden sm:flex items-center gap-3 shrink-0">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#101210] border border-[#1e211e]">
             <Zap className="w-4 h-4 text-amber-400" />
-            <span className="text-sm font-bold tabular-nums">{totalXp}</span>
-            <span className="text-xs text-slate-500">XP</span>
+            <span className="text-sm font-bold tabular-nums text-[#f2f4f2]">{totalXp}</span>
+            <span className="text-xs text-[#9a9e9a]">XP</span>
           </div>
-          <div className="px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800">
-            <span className="text-sm font-bold tabular-nums">{missionsCompleted}</span>
-            <span className="text-xs text-slate-500 ml-1">missões</span>
+          <div className="px-3 py-1.5 rounded-lg bg-[#101210] border border-[#1e211e]">
+            <span className="text-sm font-bold tabular-nums text-[#f2f4f2]">{missionsCompleted}</span>
+            <span className="text-xs text-[#9a9e9a] ml-1">missões</span>
           </div>
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          <span className="text-xs text-slate-400 hidden md:block max-w-[140px] truncate">
+          <span className="text-xs text-[#9a9e9a] hidden md:block max-w-[140px] truncate">
             {userEmail}
           </span>
           <button
             title="Sair"
-            className="p-2 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-rose-400 hover:border-rose-500/40 transition"
+            className="p-2 rounded-lg bg-[#101210] border border-[#1e211e] text-[#9a9e9a] hover:text-rose-400 hover:border-rose-500/40 transition"
           >
             <LogOut className="w-4 h-4" />
           </button>

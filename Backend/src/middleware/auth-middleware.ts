@@ -7,9 +7,7 @@ interface AuthenticateRequest extends Request {
 }
 
 export default function verifiesAcess(req: AuthenticateRequest, res: Response, next: NextFunction) {
-    console.log(req.cookies.token);
     const token = req.cookies.token;
-    console.log(token);
     if (!token) {
         return res.status(401).json({ message: "Denied access, missing token." });
     }

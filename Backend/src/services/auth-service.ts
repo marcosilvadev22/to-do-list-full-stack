@@ -21,3 +21,12 @@ export async function findUserByEmail(email: string) {
         throw error;
     }
 }
+
+export async function findByUser(idUser: string) {
+    try {
+        const checkUser = await User.findByPk(idUser);
+        return checkUser;
+    } catch (error) {
+        throw error;
+    }
+}
